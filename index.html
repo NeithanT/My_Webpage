@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neithan Vargas Vargas - Interactive CV</title>
+    <!-- Modern, clean geometric fonts mimicking the Wii UI style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --wii-bg: #f4f4f6;
+            --wii-white: #ffffff;
+            --wii-gray-dark: #464646;
+            --wii-gray-light: #b5b5b5;
+            --wii-blue: #0093e9;
+            --wii-border-radius: 24px;
+            --wii-button-radius: 50px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--wii-bg);
+            color: var(--wii-gray-dark);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            /* Wii-inspired subtle background pattern */
+            background-image: radial-gradient(#e0e0e5 15%, transparent 15%);
+            background-size: 24px 24px;
+        }
+
+        /* Main Console Container */
+        .wii-container {
+            width: 95vw;
+            height: 90vh;
+            max-width: 1400px;
+            background: var(--wii-white);
+            border: 4px solid var(--wii-gray-light);
+            border-radius: var(--wii-border-radius);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05), inset 0 0 15px rgba(0,0,0,0.02);
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- LEFT SIDEBAR: Personal Information (From image.png) --- */
+        .sidebar {
+            width: 35%;
+            border-right: 4px solid #e8e8ea;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 40px 30px;
+            background: linear-gradient(180deg, #ffffff 0%, #fafdff 100%);
+            text-align: center;
+        }
+
+        .profile-header h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.5rem;
+            color: var(--wii-gray-dark);
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+
+        .profile-header .subtitle {
+            font-size: 1.2rem;
+            color: var(--wii-gray-light);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Mii Character Placeholder Container */
+        .mii-container {
+            width: 220px;
+            height: 220px;
+            background: #f0f0f3;
+            border: 3px dashed var(--wii-gray-light);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            position: relative;
+            box-shadow: inset 0 5px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .mii-container:hover {
+            transform: scale(1.03);
+        }
+
+        /* Temporary CSS placeholder vector for the Mii head silhouette in your sketch */
+        .mii-placeholder-graphic {
+            width: 100px;
+            height: 100px;
+            background: var(--wii-gray-light);
+            border-radius: 50%;
+            position: relative;
+        }
+        .mii-placeholder-graphic::after {
+            content: '';
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 130px;
+            height: 50px;
+            background: var(--wii-gray-light);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .mii-label {
+            position: absolute;
+            bottom: -30px;
+            font-size: 0.85rem;
+            background: var(--wii-gray-dark);
+            color: white;
+            padding: 2px 12px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        /* Sidebar Contacts Footer */
+        .contact-footer {
+            width: 100%;
+        }
+
+        .contact-tag {
+            display: inline-block;
+            font-size: 0.9rem;
+            color: var(--wii-gray-dark);
+            background: #f0f0f3;
+            padding: 6px 14px;
+            border-radius: var(--wii-button-radius);
+            margin: 4px;
+            font-weight: 600;
+            border: 1px solid #e0e0e5;
+        }
+
+        /* --- RIGHT CONTENT AREA: Dynamic Navigation --- */
+        .main-content {
+            width: 65%;
+            display: flex;
+            flex-direction: column;
+            padding: 40px;
+            background-color: #fafafa;
+        }
+
+        /* Top Menu Navigation Buttons (Wii Style) */
+        .wii-nav {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 35px;
+            border-bottom: 3px solid #e8e8ea;
+            padding-bottom: 20px;
+        }
+
+        .nav-btn {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.15rem;
+            padding: 12px 30px;
+            border: 3px solid var(--wii-gray-light);
+            background: var(--wii-white);
+            color: var(--wii-gray-dark);
+            border-radius: var(--wii-button-radius);
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 0px rgba(0,0,0,0.1);
+            outline: none;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            border-color: var(--wii-blue);
+            color: var(--wii-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0px rgba(0, 147, 233, 0.2);
+        }
+
+        .nav-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0px rgba(0,0,0,0.1);
+        }
+
+        /* Content Panes Switcher */
+        .content-pane {
+            display: none;
+            overflow-y: auto;
+            flex-grow: 1;
+            padding-right: 10px;
+        }
+
+        .content-pane.active {
+            display: block;
+            animation: wiiChanFade 0.4s ease-out;
+        }
+
+        @keyframes wiiChanFade {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Custom Scrollbar to maintain clean aesthetics */
+        .content-pane::-webkit-scrollbar {
+            width: 8px;
+        }
+        .content-pane::-webkit-scrollbar-track {
+            background: #f0f0f3;
+            border-radius: 10px;
+        }
+        .content-pane::-webkit-scrollbar-thumb {
+            background: var(--wii-gray-light);
+            border-radius: 10px;
+        }
+
+        /* Content Typographical Layouts */
+        h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--wii-gray-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-block {
+            background: var(--wii-white);
+            border: 2px solid #e8e8ea;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+
+        .section-block h3 {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .time-badge {
+            display: inline-block;
+            font-size: 0.8rem;
+            background: #e3f2fd;
+            color: #0d47a1;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .pill-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .pill {
+            font-size: 0.85rem;
+            background: #f4f4f6;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+            border: 1px solid #e8e8ea;
+        }
+
+        .pill.blue {
+            background: #e8f5e9;
+            border-color: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        /* Responsive warnings - Designed for widescreen desktop display viewports */
+        @media (max-width: 850px) {
+            .wii-container { flex-direction: column; height: auto; overflow: visible; }
+            .sidebar { width: 100%; border-right: none; border-bottom: 4px solid #e8e8ea; }
+            .main-content { width: 100%; }
+            body { height: auto; overflow: auto; padding: 20px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wii-container">
+        
+        <!-- ================= SIDEBAR (Left Column from image.png) ================= -->
+        <aside class="sidebar">
+            <div class="profile-header">
+                <!-- Neithan & Software Engineer titles mapped from image.png layout -->
+                <h1>Neithan</h1>
+                <div class="subtitle">Software Engineer</div>
+            </div>
+
+            <!-- Wii-styled Mii placement node requested in your style parameters -->
+            <div class="mii-container">
+                <div class="mii-placeholder-graphic"></div>
+                <div class="mii-label">Your Mii Canvas</div>
+            </div>
+
+            <!-- Technical Summary Added as an Extra to complement your profile -->
+            <div style="margin: 15px 0; font-size: 0.95rem; line-height: 1.5; color: #666;">
+                Focused on low-level systems architecture, high-performance computing, and scalable modern web solutions.
+            </div>
+
+            <!-- Footer Contact Info mapping the placeholder links from image.png -->
+            <div class="contact-footer">
+                <span class="contact-tag">🌐 github.com/neithan</span>
+                <span class="contact-tag">✉️ neithan@example.com</span>
+                <span class="contact-tag">📱 (+506) 0000-0000</span>
+            </div>
+        </aside>
+
+        <!-- ================= CONTENT WINDOW (Right Column from image.png) ================= -->
+        <main class="main-content">
+            
+            <!-- Navigation channel bar matching the layout headers in your sketch -->
+            <nav class="wii-nav">
+                <button class="nav-btn active" onclick="switchTab('about')">About Me</button>
+                <button class="nav-btn" onclick="switchTab('projects')">Projects</button>
+                <button class="nav-btn" onclick="switchTab('experience')">Experience & Skills</button>
+            </nav>
+
+            <!-- TAB 1: About Section -->
+            <section id="about" class="content-pane active">
+                <h2>About Me</h2>
+                <div class="section-block">
+                    <p style="line-height: 1.6; margin-bottom: 15px;">
+                        Hello! I am a Software Engineering student at the Tecnológico de Costa Rica (TEC). I thrive inside specialized environments tackling low-level runtime implementations, optimization layers, and exploring highly scalable architectural designs.
+                    </p>
+                    <p style="line-height: 1.6;">
+                        Beyond the code editor, I am highly interested in the technical frameworks governing renewable energies. Academically and creatively, I constant blend logic with precision—whether that means organizing engineering initiatives, playing classical guitar configurations, or mapping out logic loops.
+                    </p>
+                </div>
+
+                <div class="section-block">
+                    <h3>Languages</h3>
+                    <div class="pill-container">
+                        <span class="pill">🗣️ Spanish (Native)</span>
+                        <span class="pill">🗣️ English (High Proficiency)</span>
+                        <span class="pill">🗣️ German (Learning)</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: Projects Section -->
+            <section id="projects" class="content-pane">
+                <h2>Projects Portfolio</h2>
+                
+                <div class="section-block">
+                    <h3>3D Wii-Inspired Portfolio Ecosystem</h3>
+                    <span class="time-badge">In Development</span>
+                    <p>Building an immersive, 3D interactive user portfolio site utilizing state-of-the-art WebGL layouts mimicking the historical Nintendo Wii system UI channel canvas.</p>
+                    <div class="pill-container">
+                        <span class="pill">Three.js</span>
+                        <span class="pill">JavaScript</span>
+                        <span class="pill">WebGL</span>
+                        <span class="pill">CSS3 3D</span>
+                    </div>
+                </div>
+
+                <div class="section-block">
+                    <h3>Institutional Event Organizer Platform</h3>
+                    <span class="time-badge">Deployed</span>
+                    <p>Designed, constructed, and successfully pushed a production-grade operations system utilizing reverse-proxied instances securely deployed within cloud infrastructures.</p>
+                    <div class="pill-container">
+                        <span class="pill">AWS</span>
+                        <span class="pill">Nginx</span>
+                        <span class="pill">SSL/TLS Security</span>
+                        <span class="pill">Architecture</span>
+                    </div>
+                </div>
+
+                <div class="section-block">
+                    <h3>AI System Definition Processing Flow</h3>
+                    <span class="time-badge">Completed</span>
+                    <p>Developed an interactive step-by-step chat interaction structure built explicitly to dynamically compile, process, and isolate precise data dictionary definitions cleanly.</p>
+                    <div class="pill-container">
+                        <span class="pill">Node.js</span>
+                        <span class="pill">Asynchronous Flow</span>
+                        <span class="pill">Data Parsing</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: Experience & Skills Section -->
+            <section id="experience" class="content-pane">
+                <h2>Experience & Core Expertise</h2>
+                
+                <div class="section-block">
+                    <h3>Secretary of Academic Affairs</h3>
+                    <div class="time-badge">ASODEC - Tecnológico de Costa Rica</div>
+                    <p>Serving actively on the executive student board of Computer Engineering managing curriculum representation, drafting formal academic proposals, and steering board directives.</p>
+                </div>
+
+                <div class="section-block">
+                    <h3>Technical Toolbelt</h3>
+                    
+                    <strong style="display:block; margin: 12px 0 6px 0; font-size:0.95rem;">Systems & Low-Level Programming:</strong>
+                    <div class="pill-container">
+                        <span class="pill blue">Rust</span>
+                        <span class="pill blue">C</span>
+                        <span class="pill blue">C++</span>
+                        <span class="pill blue">Assembly</span>
+                        <span class="pill blue">Linux (Fedora Environment)</span>
+                    </div>
+
+                    <strong style="display:block; margin: 16px 0 6px 0; font-size:0.95rem;">Web Application Frameworks:</strong>
+                    <div class="pill-container">
+                        <span class="pill">Angular</span>
+                        <span class="pill">React</span>
+                        <span class="pill">Astro</span>
+                        <span class="pill">TypeScript</span>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Wii Tab System Switching Logic -->
+    <script>
+        function switchTab(tabId) {
+            // Remove active status from all channels
+            document.querySelectorAll('.content-pane').forEach(pane => {
+                pane.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Activate chosen channel
+            document.getElementById(tabId).classList.add('active');
+            
+            // Highlight active button based on click target trigger
+            const activeBtn = Array.from(document.querySelectorAll('.nav-btn')).find(btn => 
+                btn.getAttribute('onclick').includes(tabId)
+            );
+            if (activeBtn) activeBtn.classList.add('active');
+        }
+    </script>
+</body>
+</html>
