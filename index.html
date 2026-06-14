@@ -27,6 +27,7 @@
         }
 
         body {
+            cursor: url('wii-hand.webp') 12 4, auto;
             font-family: 'Outfit', sans-serif;
             background-color: var(--wii-bg);
             color: var(--wii-gray-dark);
@@ -38,6 +39,18 @@
             /* Wii-inspired subtle background pattern */
             background-image: radial-gradient(#e0e0e5 15%, transparent 15%);
             background-size: 24px 24px;
+        }
+
+        button, .nav-btn, [onclick], a {
+            cursor: url('wii-pointer.webp') 12 4, pointer;
+        }
+
+        body.clicking,
+        body.clicking button,
+        body.clicking .nav-btn,
+        body.clicking [onclick],
+        body.clicking a {
+            cursor: url('wii-pointer-closed.webp') 12 4, pointer;
         }
 
         /* Main Console Container */
@@ -425,6 +438,9 @@
 
     <!-- Wii Tab System Switching Logic -->
     <script>
+        document.addEventListener('mousedown', () => document.body.classList.add('clicking'));
+        document.addEventListener('mouseup', () => document.body.classList.remove('clicking'));
+
         function switchTab(tabId) {
             // Remove active status from all channels
             document.querySelectorAll('.content-pane').forEach(pane => {
