@@ -153,6 +153,13 @@
             margin: 4px;
             font-weight: 600;
             border: 1px solid #e0e0e5;
+            text-decoration: none;
+            transition: background 0.15s, border-color 0.15s;
+        }
+
+        a.contact-tag:hover {
+            background: #e2e2e8;
+            border-color: #c8c8d0;
         }
 
         /* --- RIGHT CONTENT AREA: Dynamic Navigation --- */
@@ -323,9 +330,9 @@
 
             <!-- Footer Contact Info mapping the placeholder links from image.png -->
             <div class="contact-footer">
-                <span class="contact-tag">🌐 github.com/NeithanT</span>
-                <span class="contact-tag">✉️ neithanvarvar@hotmail.com</span>
-                <span class="contact-tag">📱 +506 8801-0300</span>
+                <a class="contact-tag" href="https://github.com/NeithanT" target="_blank" rel="noopener noreferrer">🌐 github.com/NeithanT</a>
+                <a class="contact-tag" href="mailto:neithanvarvar@hotmail.com">✉️ neithanvarvar@hotmail.com</a>
+                <a class="contact-tag" href="https://wa.me/50688010300" target="_blank" rel="noopener noreferrer">📱 +506 8801-0300</a>
             </div>
         </aside>
 
